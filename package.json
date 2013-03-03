@@ -1,0 +1,17 @@
+{
+	"name": "ui.js",
+	"version": "0.1.0",
+	"description": "A jquery using style template engine for javascript",
+	"main": "index.js",
+	"repository": "",
+	"author": "aleechou",
+	"license": "MIT",
+	"directories": {
+	  "lib" : "./lib"
+	}
+
+	, "dependencies": {
+		"seajs": "1.3.0"
+		, "ocHtmlParser": "*"
+	}
+}
