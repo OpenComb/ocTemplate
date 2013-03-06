@@ -12,6 +12,7 @@
 
 	, "dependencies": {
 		"seajs": "1.3.0"
-		, "ocHtmlParser": "*"
+		, "ocHtmlParser": "0.1"
+		, "ocClass": "0.1"
 	}
 }

@@ -5,27 +5,30 @@ define(function(require){
 
 	var ui = require("../index.js") ;
 
-	ui.template(__dirname+"/templates/css-zen-garden.html",function(err,tpl){
+
+
+	ui.template(__dirname+"/templates/css-zen-garden.html",function(err,ctx){
 
 
 
 		if(err)
 		{
-			console.log(err) ;
+			console.log(err.stack) ;
+			console.log(err.toString()) ;
 			return ;
 		}
 
-		var dom = tpl.dom ;
-		var meta = dom.childNodes[1].childNodes[1].childNodes[0] ;
-		console.log(meta.nodeValue) ;
-		console.log(dom.childNodes[0].nodeValue) ;
-//		console.log(dom.childNodes[1].nodeValue) ;
-//		console.log(dom.childNodes[2].tagName) ;
 
-		var body = dom.body ;
-		console.log(body.raw) ;
 
-		tpl.render() ;
+		var startTime = new Date();
+		console.log( ctx.render({
+			a: "a"
+			, b: 'b'
+			, c: 'c'
+			, d: 'd'
+			, x: 1000
+		}) ) ;
+		console.log( new Date() - startTime + " ms" ) ;
 
 	}) ;
 
