@@ -7,14 +7,14 @@ var ui = require("ocTemplate").singleton ;
 
 var tpl = ui.template("ocTemplate/example/templates/template-a.html",__filename) ;
 
-tpl.load(function(err,ctx){
+tpl.load(function(err,tpl){
 	if(err)
 	{
 		console.log(err.stack) ;
 		console.log(err.toString()) ;
 	}
 
-	ctx.render({
+	var model = {
 		a: "a"
 		, b: 'b'
 		, c: 'c'
@@ -22,14 +22,16 @@ tpl.load(function(err,ctx){
 		, x: 1000
 		, i: 1
 		, l: 0
-	},function(err,buff){
+	} ;
+
+	tpl.createRenderContext().render(function(err,buff){
 		if(err)
 		{
 			console.log(err.stack) ;
 			console.log(err.toString()) ;
 		}
 		console.log(buff.toString()) ;
-	}) ;
+	},model) ;
 }) ;
 
 //
