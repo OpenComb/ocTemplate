@@ -11,7 +11,7 @@
 	}
 
 	, "dependencies": {
-		"ocHtmlParser": "0.1"
-		, "ocClass": "0.1"
+		"ochtmlparser": "0.1"
+		, "occlass": "0.1"
 	}
 }

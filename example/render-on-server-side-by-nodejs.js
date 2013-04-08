@@ -1,11 +1,11 @@
 
 
-var TemplateCaches = require("ocTemplate") ;
-var RenderBuffer = require("ocTemplate/lib/RenderBuffer.js") ;
-var ui = require("ocTemplate").singleton ;
+var TemplateCaches = require("octemplate") ;
+var RenderBuffer = require("octemplate/lib/RenderBuffer.js") ;
+var ui = require("octemplate").singleton ;
 
 
-var tpl = ui.template("ocTemplate/example/templates/template-a.html",function(err,tpl){
+var tpl = ui.template("octemplate/example/templates/template-a.html",function(err,tpl){
 	if(err)
 	{
 		console.log(err.stack) ;
@@ -51,7 +51,7 @@ function test($model,buff,callback){
 		var $nextstep = _$step_last ;
 		with($variables)
 		{try{
-			buff.write( "<div>a</div>\n\n<div>\n    <include file=\"ocTemplate/example/templates/template-b.html\" />\n</div>\n\n        <if \"\">\n            hi\n        </if>\n\n<div title=\"\" " );
+			buff.write( "<div>a</div>\n\n<div>\n    <include file=\"octemplate/example/templates/template-b.html\" />\n</div>\n\n        <if \"\">\n            hi\n        </if>\n\n<div title=\"\" " );
 			buff.write( i )
 
 			buff.write( ">ccc</div>\n    " );
