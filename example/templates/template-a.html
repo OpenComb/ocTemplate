@@ -4,22 +4,23 @@
     <include file="octemplate/example/templates/template-b.html" />
 </div>
 
-        <if "@i">
+        <if condition="@i">
             hi
         </if>
 
-<div title="@ l" {% i %}>ccc</div>
-    <% i %>
+<div title="@ l" {@ i }>ccc</div>
+    {@ i }
 <div>dddd</div>
 
-<loop 10 var=i>
-    <% i %>
+<loop end=10 var=i>
+    {@ i }
 </loop>
 
-
-<foreach "@arr" var="v" key="i">
-    <foreach "@obj" var="vv" key="k">
-        <% i %> : <% v %>
-        <% k %> : <% vv %>
+------------
+<foreach for="@arr" var="v" key="i">
+    <foreach for="@obj" var="vv" key="k">
+        - {@ i } : {@ v }
+        - {@ k } : {@ vv }
     </foreach>
 </foreach>
+------------

@@ -1,5 +1,5 @@
 {
-	"name": "ui.js",
+	"name": "octemplate",
 	"version": "0.1.0",
 	"description": "A jquery using style template engine for javascript",
 	"main": "./lib/TemplateCaches.js",
@@ -11,7 +11,8 @@
 	}
 
 	, "dependencies": {
-		"ochtmlparser": "0.1"
+		"jsdom": "0.5.6"
 		, "occlass": "0.1"
+
 	}
 }
