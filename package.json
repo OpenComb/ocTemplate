@@ -2,7 +2,7 @@
 	"name": "octemplate",
 	"version": "0.1.0",
 	"description": "A jquery using style template engine for javascript",
-	"main": "./lib/TemplateCaches.js",
+	"main": "index.js",
 	"repository": "",
 	"author": "aleechou",
 	"license": "MIT",
