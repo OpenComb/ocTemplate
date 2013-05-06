@@ -1,7 +1,7 @@
 var dom      = exports.dom = require("./jsdom/level3/index").dom,
     features = require('./jsdom/browser/documentfeatures'),
     fs       = require("fs"),
-    pkg      = JSON.parse(fs.readFileSync(__dirname + "/../package.json")),
+    //pkg      = JSON.parse(fs.readFileSync(__dirname + "/../package.json")),
     request  = require('request'),
     URL      = require('url');
 
@@ -27,7 +27,7 @@ exports.debugMode = false;
 var createWindow = exports.createWindow = require("./jsdom/browser/index").createWindow;
 
 exports.__defineGetter__('version', function() {
-  return pkg.version;
+  //return pkg.version;
 });
 
 exports.level = function (level, feature) {
