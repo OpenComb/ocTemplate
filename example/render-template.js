@@ -1,8 +1,6 @@
 
 
-var TemplateCaches = require("octemplate") ;
-var RenderBuffer = require("octemplate/lib/RenderBuffer.js") ;
-var ui = require("octemplate").singleton ;
+var ui = require("../") ;
 
 var model = {
 	a: "a"
