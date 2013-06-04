@@ -1,3 +1,3 @@
 var TemplateCaches = require("./lib/TemplateCaches.js") ;
 
-module.exports = TemplateCaches.singleton ;
+module.exports = new TemplateCaches ;
