@@ -19,7 +19,7 @@
 		, "request": "2.x"
 		, "cssom": "~0.2.5"
 		, "cssstyle": "~0.2.3"
-		, "occlass": "0.1"
+		, "ocsteps": "0.2.14"
   },
   "readme": "a Template for nodejs",
   "readmeFilename": "README.md",
