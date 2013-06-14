@@ -1,7 +1,7 @@
 {
 
   "name": "octemplate",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A jquery using style template engine for javascript",
   "main": "index.js",
   "repository": "git@github.com:OpenComb/ocTemplate.git",
