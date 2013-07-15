@@ -152,12 +152,13 @@ result of expression: 123 .
 <div> {@$model.foo} </div>
 ```
 
-#### 对于变量`foo`，`{@foo}` 和 `{@$model.foo}`：
+对于变量`foo`，`{@foo}` 和 `{@$model.foo}` 这两种写法：
 
 * 如果`foo`变量存在，两者具有效果相同；
 
 * 如果`foo`变量不存在，则`{@foo}`抛出异常（会打断后文的模板内容渲染），`{@$model.foo}`则输出 `undefined` 。
 
+简单的说，和JavaScript的标准行为一致。
 
 因此`$model.foo`适合用于不确定是否存在的变量，它的效果类似于：
 
