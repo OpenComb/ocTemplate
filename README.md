@@ -3,6 +3,7 @@ ocTemplate 是一个为“面向二次发开项目”而设计的 Node.js 模板
 ocTemplate 允许开发者使用 jQuery 处理模板结构，除此以外 ocTemplate 和其他的模板引擎没有太大的区别。
 例如你正在开发一个blog程序而且采用了 ocTemplate 做为模板引擎，当有人基于你的blog程序进行二次开发时（他们使用你的blog程序，但是想改些地方），
 可以不必修改你的模板源代码，而是在ocTemplate渲染一个模板前加载这个模板，用 jQuery 修改模板上的内容，就像在浏览器里操作网页元素一样。
+这些操作都在后端 Nodejs 里实现。
 
 > 你可以在模板上使用这些jQuery函数来控制模板的内容和结构：$.fn.append()/prepend()/after()/before()/attr()/addClass()/removeClass() ... ...
 
@@ -13,7 +14,7 @@ ocTemplate 允许开发者使用 jQuery 处理模板结构，除此以外 ocTemp
 * “补丁”代码可以作为独立的项目分发。
 
 
-ocTemplate 依赖jsdom，并且对 jsdom 做了修改，接触了 jsdom 对 contextify C++ 的依赖，使 ocTemplate 能够在纯JavaScript环境中工作。
+ocTemplate 依赖jsdom，并且对 jsdom 做了修改，解除了 jsdom 对 contextify C++ 的依赖，使 ocTemplate 能够在纯JavaScript环境中工作。
 
 ocTemplate 没有像 jade 那样简化 html 语法，jade的模板语法简洁、干静，没有多余的字符，非常适合“敏捷”开发，但是无法和 jQuery 兼容。所以 ocTemplate 仍然保持完整的 html 语法。
 
@@ -94,19 +95,19 @@ templates/hello.html :
 ```html
 <div foo="@bar"></div>
 ```
-以`@`开头的属性值，将被时做一个表达式，计算后的结果以字符串的形式输出。
+所有以`@`开头的属性值，将被视做一个表达式，计算后的结果以字符串的形式输出。
 
 > 注意：有些模板标签的属性必须是表达式才有意义，漏掉`@`模板引擎不会报告错误，但逻辑并不正确，这是一个常见的新手错误。例如：
 
-	```html
-	<if condition="foo">Variable foo is avalid.</if>
-	```
-	这是错误的，condition 会收到一个字符串：`"foo"` 而不是变量 `foo`，因此判断总是为 true 。
+```html
+<if condition="foo">Variable foo is avalid.</if>
+```
+这是错误的，condition 会收到一个字符串：`"foo"` 而不是变量 `foo`，因此判断总是为 true 。
 
-	```html
-	<!-- 不能漏掉那个 @ -->
-	<if condition="@foo">Variable foo is avalid.</if>
-	```
+```html
+<!-- 不能漏掉那个 @ -->
+<if condition="@foo">Variable foo is avalid.</if>
+```
 
 ### 多行表达式
 
@@ -121,7 +122,7 @@ result of expression: {@ var i=123; return i } .
 result of expression: undefined .
 ```
 
-这不是预期的效果。这种情况下，可以使用匿名函数包装多行表达式：
+这不是预期的效果。这种情况下，可以使用匿名函数来包装多行表达式：
 
 ```html
 result of expression: {@ (function(){ var i=123; return i ;})() } .
@@ -139,12 +140,12 @@ result of expression: 123 .
 	
 # 标签
 
-## <if>
+## &lt;if&gt;
 
 属性：
 * [必须] `condition`: 条件表达式
 
-## <foreach>
+## &lt;foreach&gt;
 
 属性：
 
@@ -168,11 +169,11 @@ example：
 
 > 注意：只有for属性是一个表达式（`@`开头），`key` 和 `var` 只是简单是字符型属性值，它们作为变量名称
 
-# <loop>
+# &lt;loop&gt;
 
 这是一个简化的 for 循环。
 
-> <loop> 仅支持针对整数的迭代
+> &lt;loop&gt; 仅支持针对整数的迭代
 
 属性：
 
@@ -203,33 +204,33 @@ foo = 7
 ```
 
 
-## <elseif>
+## &lt;elseif&gt;
 
-在所有流程控制标签中提供 else if 效果；支持： <if>, <loop>, <foreach> 等
+在所有流程控制标签中提供 else if 效果；支持： &lt;if&gt;, &lt;loop&gt;, &lt;foreach&gt; 等
 
 属性：
 
-* [必须] `condition`， 参看 <if> 同名属性
+* [必须] `condition`， 参看 &lt;if&gt; 同名属性
 
-## <else>
+## &lt;else&gt;
 
-在所有流程控制标签中提供 else 效果；支持： <if>, <loop>, <foreach> 等
-
-无属性
-
-## <continue>
-
-在所有流程控制标签中提供 continue 效果；支持： <if>, <loop>, <foreach> 等
+在所有流程控制标签中提供 else 效果；支持： &lt;if&gt;, &lt;loop&gt;, &lt;foreach&gt; 等
 
 无属性
 
-## <break>
+## &lt;continue&gt;
 
-在所有流程控制标签中提供 break 效果；支持： <if>, <loop>, <foreach> 等
+在所有流程控制标签中提供 continue 效果；支持： &lt;if&gt;, &lt;loop&gt;, &lt;foreach&gt; 等
 
 无属性
 
-## <include>
+## &lt;break&gt;
+
+在所有流程控制标签中提供 break 效果；支持： &lt;if&gt;, &lt;loop&gt;, &lt;foreach&gt; 等
+
+无属性
+
+## &lt;include&gt;
 
 引用另一个模板。
 
@@ -261,21 +262,21 @@ foo = 7
 
 * gt (lft,rgt)
 
-	如果 lft 大于 rgt(>)，返回true，否则返回false。
+	如果 lft 大于 rgt(&gt;)，返回true，否则返回false。
 	
 * lt (lft,rgt)
 
-	如果 lft 小于 rgt(<)，返回true，否则返回false。
+	如果 lft 小于 rgt(&lt;)，返回true，否则返回false。
 	
 * ge (lft,rgt)
 	
-	如果 lft 大于等于(>=) rgt，返回true，否则返回false。
+	如果 lft 大于等于(&gt;=) rgt，返回true，否则返回false。
 	
 * le (lft,rgt)
 	
-	如果 lft 小于等于(<=) rgt，返回true，否则返回false。
+	如果 lft 小于等于(&lt;=) rgt，返回true，否则返回false。
 
-> 比较运算符中的 `<` 和 `>` 与模板中的标签边界符号相冲突，所以必须使用 $helper 中的比较方法(compare methods)。
+> 比较运算符中的 `&lt;` 和 `&gt;` 与模板中的标签边界符号相冲突，所以必须使用 $helper 中的比较方法(compare methods)。
 
 example:
 
