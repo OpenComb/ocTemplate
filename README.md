@@ -160,13 +160,15 @@ result of expression: 123 .
 
 简单的说，和JavaScript的标准行为一致。
 
-因此`$model.foo`适合用于不确定是否存在的变量，它的效果类似于：
+因此如果不能保证 foo 变量一定存在，使用 `{@$model.foo}` 代替 `{@foo}`
 
-```html
-<div>
-{@ typeof foo!='undefined'? foo: undefined}
-</div>
-```
+> `{@$model.foo}` 的效果类似于：
+
+	```html
+	<div>
+	{@ typeof foo!='undefined'? foo: undefined}
+	</div>
+	```
 	
 ---
 	
