@@ -152,7 +152,7 @@ result of expression: 123 .
 <div> {@$model.foo} </div>
 ```
 
-___ 对于变量`foo`，`{@foo}` 和 `{@$model.foo}`： ___
+#### 对于变量`foo`，`{@foo}` 和 `{@$model.foo}`：
 
 * 如果`foo`变量存在，两者具有效果相同；
 
