@@ -136,6 +136,18 @@ result of expression: 123 .
 用 `(function(){ ... })()` 模式将多行表达式包装起来即可。
 	
 	
+### $model
+
+预置变量`$model`是模板中所有变量的名称空间。
+
+`{@foo}` 和 `{@$model.foo}` 在`foo`变量存在时，效果相同；如果`foo`变量不存在，则`{@foo}`抛出异常（会打断后文的模板内容渲染），`{@$model.foo}`则输出 `"undefined"` 。
+
+因此`$model.foo`适合用于不确定是否存在的变量，它的效果类似于：
+
+```javascript
+{@ typeof foo!='undefined'? foo: undefined}
+```
+	
 ---
 	
 # 标签
@@ -143,7 +155,18 @@ result of expression: 123 .
 ## &lt;if&gt;
 
 属性：
+
 * [必须] `condition`: 条件表达式
+
+example：
+
+```html
+<if condition="@foo=='bar'">
+	{@foo}
+</if>
+```
+
+> 注意：不要漏掉 condition 属性里的 `@`，否则会被当作一个字符串，那多半不是你想要的效果。
 
 ## &lt;foreach&gt;
 
@@ -289,5 +312,58 @@ example:
 ```
 ---
 
-# jQuery
+# 后端 jQuery 操作
 
+以上都是内容和其他模板引擎没有太大区别，接下来才是 ocTemplate 的重点。
+
+ocTemplate 支持 jQuery, 每一个模板对象都可以被当作一个独立的 browser 环境，jQuery可以在模板对象(template)内运行，其行为和在浏览器里完全一致。
+
+```javascript
+var tplCache = require("octemplate") ;
+
+// 加载 template
+tplCache(__dirname+"/templates/hello.html",function(err,tpl){
+
+	// 处理模板加载错误 err
+	// todo ...
+
+	// 在导航菜单中加入一个菜单项
+	tpl.$("ul.navMenu").append("<li><a href='javascript:alert(\"hello world.\")'>hello</a></li>") ;
+
+	// 重新编译模板
+	tpl.compile() ;
+}) ;
+```
+
+也可以在向模板中添加流程控制标签和表达式 (Cool!)：
+
+```javascript
+
+	// ...
+
+	// 在导航菜单中加入一个菜单项
+	// (使用 <if> 判断是否存在变量 username，并将 username 里的值输出到 alert 里 )
+	tpl.$("ul.navMenu").append(
+		"<if condition='@$model.username'>"
+			+ "<li>"
+				"<a href='javascript:alert(\"hello, {@$model.username}\"+)'>hello</a>"
+			+ "</li>
+		+ "</if>"
+	) ;
+	
+	// ...
+```
+
+在 ocTemplate 的模板中执行事件相关的jQuery操作没有意义：有些事件可能不会触发，即使触发也不会发生在浏览器里，与用户交互无关。
+
+一个错误的例子：
+```javascript
+
+	tpl.$("ul li a.login").click(function(){
+		// 永远不会触发的事件
+		alert("you want login?") ;
+	}) ;
+
+```
+
+上面的用法实际上是混淆的前端和后端的区别，ocTempate 对jQuery 的支持，仅仅用于控制模板文件里的内容，不直接支持网页的前端行为。
