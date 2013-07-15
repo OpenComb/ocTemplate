@@ -140,12 +140,31 @@ result of expression: 123 .
 
 预置变量`$model`是模板中所有变量的名称空间。
 
-`{@foo}` 和 `{@$model.foo}` 在`foo`变量存在时，效果相同；如果`foo`变量不存在，则`{@foo}`抛出异常（会打断后文的模板内容渲染），`{@$model.foo}`则输出 `"undefined"` 。
+`tpl.render()` 的参数 model 中的内容都在 `$model` 中；所有`$model`对象的属性，都可以在模板表达式中作为独立的变量使用。
+
+例如：
+
+```html
+<div> {@foo} </div>
+```
+或者：
+```html
+<div> {@$model.foo} </div>
+```
+
+___ 对于变量`foo`，`{@foo}` 和 `{@$model.foo}`： ___
+
+* 如果`foo`变量存在，两者具有效果相同；
+
+* 如果`foo`变量不存在，则`{@foo}`抛出异常（会打断后文的模板内容渲染），`{@$model.foo}`则输出 `undefined` 。
+
 
 因此`$model.foo`适合用于不确定是否存在的变量，它的效果类似于：
 
-```javascript
+```html
+<div>
 {@ typeof foo!='undefined'? foo: undefined}
+</div>
 ```
 	
 ---
