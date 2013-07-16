@@ -63,6 +63,19 @@ templates/hello.html :
 ```
 
 
+
+
+# 安装开发版本（使用最新但不稳定的代码）
+
+```
+mkdir node_modules
+cd node_modules
+git clone git@github.com:OpenComb/ocTemplate.git octemplate
+cd octemplate
+git checkout 0.1.3
+```
+
+
 # 表达式
 
 模板表达式的基本形式是：`{@ expression }`，它可以用于文本和标签属性中。
@@ -344,7 +357,7 @@ ocTemplate 支持 jQuery, 每一个模板对象都可以被当作一个独立的
 var tplCache = require("octemplate") ;
 
 // 加载 template
-tplCache(__dirname+"/templates/hello.html",function(err,tpl){
+tplCache.template(__dirname+"/templates/hello.html",function(err,tpl){
 
 	// 处理模板加载错误 err
 	// todo ...
