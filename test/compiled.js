@@ -16,9 +16,7 @@ describe("Template",function(){
             }
 
             tpl.render({name:"world"},function(err,buff){
-
                 buff.toString().should.match(/hello\, world/) ;
-
                 done() ;
             }) ;
 
