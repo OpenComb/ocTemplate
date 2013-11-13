@@ -1176,7 +1176,7 @@ core.Document = function Document(options) {
 
 var tagRegEx = /[^\w:\d_\.-]+/i;
 var entRegEx = /[^\w\d_\-&;]+/;
-var invalidAttrRegEx = /[^\w:\d_\.-\?]+/;
+var invalidAttrRegEx = /[^\w:\d_\.\-\?]+/;
 
 core.Document.prototype = {
   nodeType : DOCUMENT_NODE,
